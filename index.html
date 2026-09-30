@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>သီးတင်းကျွတ် မေတ္တာမီးအိမ် - Thadingyut Special Wish</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Padauk', 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #1e0b36, #0d041a, #030008);
+            overflow: hidden;
+            height: 100vh;
+            touch-action: manipulation;
+        }
+
+        .font-serif-custom {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Smooth falling animation stopping in the center */
+        @keyframes floatDownToCenter {
+            0% {
+                transform: translate(-50%, -100vh) rotate(-10deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            35% {
+                transform: translate(-38%, -12vh) rotate(6deg);
+            }
+            65% {
+                transform: translate(-58%, 8vh) rotate(-4deg);
+            }
+            85% {
+                transform: translate(-46%, 18vh) rotate(3deg);
+            }
+            100% {
+                transform: translate(-50%, 20vh) rotate(-1deg);
+            }
+        }
+
+        /* Gentle floating/swaying while staying in screen center */
+        @keyframes centerSwaying {
+            0%, 100% {
+                transform: translate(-50%, 20vh) rotate(-1deg) scale(1);
+            }
+            50% {
+                transform: translate(-50%, 16vh) rotate(2deg) scale(1.04);
+            }
+        }
+
+        /* Transparent GIF Floating Container */
+        .free-floating-image {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            animation: floatDownToCenter 5.5s cubic-bezier(0.25, 1, 0.5, 1) forwards,
+                       centerSwaying 4s ease-in-out infinite 5.5s;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .free-floating-image img {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
+        }
+
+        .free-floating-image:hover img {
+            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.95));
+        }
+
+        /* Click prompt badge animation */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.85; transform: scale(0.96); }
+            50% { opacity: 1; transform: scale(1.06); }
+        }
+
+        .click-hint {
+            animation: pulseGlow 1.8s infinite;
+        }
+
+        /* --- ROYAL PARCHMENT & GOLDEN EMBOSSED CARD STYLES --- */
+        .royal-gold-bg {
+            background-color: #2b0b14;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.15), transparent 80%),
+                linear-gradient(135deg, rgba(180, 83, 9, 0.25) 25%, transparent 25%),
+                linear-gradient(225deg, rgba(180, 83, 9, 0.25) 25%, transparent 25%);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 30px rgba(217, 119, 6, 0.2);
+        }
+
+        .parchment-paper {
+            background: linear-gradient(180deg, #fefce8 0%, #fef3c7 50%, #fde68a 100%);
+            box-shadow: inset 0 0 20px rgba(180, 83, 9, 0.2), 0 8px 25px rgba(0,0,0,0.4);
+            border: 1px solid #f59e0b;
+        }
+
+        /* Stamp Photo Style at bottom right */
+        .stamp-photo {
+            background: #fff;
+            padding: 4px;
+            border: 2px dashed #d97706;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3);
+            transform: rotate(5deg);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .stamp-photo:hover {
+            transform: rotate(0deg) scale(1.12);
+            box-shadow: 0 10px 20px rgba(217, 119, 6, 0.4);
+        }
+
+        /* Typing cursor effect */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            color: #b45309;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Floating Sky Lanterns Particle Animation */
+        .sky-lantern {
+            position: absolute;
+            width: 22px;
+            height: 30px;
+            background: radial-gradient(circle at 50% 80%, #fef08a, #f59e0b 60%, #b45309 90%);
+            border-radius: 6px 6px 4px 4px;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.8);
+            pointer-events: none;
+            animation: floatLantern var(--duration) linear infinite;
+            opacity: 0.85;
+        }
+
+        .sky-lantern::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 4px;
+            background: #78350f;
+            border-radius: 2px;
+        }
+
+        @keyframes floatLantern {
+            0% {
+                transform: translateY(105vh) translateX(0) scale(0.4);
+                opacity: 0;
+            }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% {
+                transform: translateY(-15vh) translateX(var(--drift)) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* Password Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+    </style>
+</head>
+<body class="relative flex items-center justify-center min-h-screen select-none overflow-hidden text-slate-100">
+
+    <!-- Audio Element (Thadingyut Festive Music) -->
+    <audio id="bgMusic" loop src="https://www.image2url.com/r2/default/audio/1789288232634-9a89e91e-e43f-4d68-b101-bf9b607f0f76.m4a"></audio>
+
+    <!-- Start Screen (Transparent GIF Oil Lamp & Hint) -->
+    <div id="startScreen" class="absolute inset-0 z-40 flex flex-col items-center justify-center cursor-pointer transition-opacity duration-700 bg-black/40 backdrop-blur-sm" onclick="startExperience()">
+        <h1 class="text-amber-300 text-lg sm:text-xl font-bold tracking-wide drop-shadow-[0_2px_8px_rgba(245,158,11,0.8)] mb-6 click-hint text-center px-4">
+            🪔 Click 🪔
+        </h1>
+        <!-- No Frame Transparent GIF -->
+        <img src="https://i.ibb.co/XZYKdfXM/photo-2026-09-30-12-02-19.jpg" 
+             alt="Thadingyut Lamp" 
+             class="w-44 sm:w-52 h-auto object-contain hover:scale-110 transition-transform duration-300 filter drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
+    </div>
+
+    <!-- Main Content Container (Hidden Initially) -->
+    <div id="mainContent" class="hidden w-full h-full">
+        <!-- Floating Sky Lanterns Container -->
+        <div id="lantern-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+        <!-- Soft Background Ambient Glows -->
+        <div class="absolute w-96 h-96 bg-amber-600/20 rounded-full blur-3xl pointer-events-none top-1/4 left-1/2 -translate-x-1/2"></div>
+
+        <!-- Instructions Banner -->
+        <div class="absolute top-8 text-center z-10 px-4 w-full">
+            <h1 class="text-amber-300 text-base sm:text-lg font-bold tracking-wide drop-shadow-md">
+                ✨ သီးတင်းကျွတ် ✨
+            </h1>
+            <p class="text-xs text-amber-200/80 mt-1">နှိပ်၍ ဆုတောင်းစာလွှာ ဖတ်ရှုပါ</p>
+        </div>
+
+        <!-- Floating Transparent GIF (Lantern) -->
+        <div id="fallingCard" class="free-floating-image z-20 flex flex-col items-center justify-center" onclick="promptPasscode()">
+            <img src="https://user34427.na.imgto.link/public/20260921/1000021860.avif" 
+                 alt="Thadingyut Lantern" 
+                 class="w-36 sm:w-44 h-auto object-contain pointer-events-auto"
+                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/2830/2830289.png'">
+            
+            <span class="click-hint mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.8)] border border-amber-200">
+                ✨ Click Me ✨
+            </span>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300" onclick="closePasscodeOnBg(event)">
+        <div id="passcodeCard" class="relative w-full max-w-xs bg-slate-900/90 border-2 border-amber-500/60 rounded-2xl p-6 text-center shadow-[0_0_30px_rgba(245,158,11,0.3)] transform scale-95 transition-transform duration-300">
+            
+            <button onclick="closePasscodeModal()" class="absolute top-3 right-3 text-amber-400/80 hover:text-amber-300 focus:outline-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <div class="text-3xl mb-2">🔐</div>
+            <h3 class="text-lg font-bold text-amber-300 mb-1">Passcode ရိုက်ထည့်ပါ</h3>
+            <p id="passcodeHintText" class="text-xs text-amber-200/70 mb-4">ဆုတောင်းစာလွှာ ဖွင့်ရန် Passcode ရိုက်ပါ</p>
+
+            <!-- Password Dots Container -->
+            <div id="passcodeDots" class="flex justify-center gap-2 mb-6">
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+                <div class="w-3.5 h-3.5 rounded-full border border-amber-400 bg-transparent transition-all"></div>
+            </div>
+
+            <!-- Keypad Buttons -->
+            <div class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto">
+                <button onclick="appendPasscode('1')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">1</button>
+                <button onclick="appendPasscode('2')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">2</button>
+                <button onclick="appendPasscode('3')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">3</button>
+                <button onclick="appendPasscode('4')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">4</button>
+                <button onclick="appendPasscode('5')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">5</button>
+                <button onclick="appendPasscode('6')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">6</button>
+                <button onclick="appendPasscode('7')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">7</button>
+                <button onclick="appendPasscode('8')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">8</button>
+                <button onclick="appendPasscode('9')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">9</button>
+                <button onclick="clearPasscode()" class="py-2.5 rounded-xl bg-rose-950/40 text-rose-300 font-bold hover:bg-rose-900/50 active:scale-95 transition-all border border-rose-500/30 text-xs">Clear</button>
+                <button onclick="appendPasscode('0')" class="py-2.5 rounded-xl bg-amber-950/40 text-amber-200 font-bold hover:bg-amber-800/50 active:scale-95 transition-all border border-amber-500/20">0</button>
+                <button onclick="removeLastPasscode()" class="py-2.5 rounded-xl bg-slate-800 text-amber-200 font-bold hover:bg-slate-700 active:scale-95 transition-all border border-amber-500/20 flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thadingyut Royal Wish Modal Paper Card -->
+    <div id="wishModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-500" onclick="closeWishCardOnBg(event)">
+        
+        <!-- Outer Royal Golden Frame Container -->
+        <div class="royal-gold-bg relative w-full max-w-md rounded-2xl p-4 sm:p-6 transform scale-90 transition-transform duration-500 overflow-hidden border-2 border-amber-400/80" id="modalCard">
+            
+            <!-- Corner Decorative Elements -->
+            <div class="absolute top-2 left-2 text-amber-400 opacity-60 text-lg">🪔</div>
+            <div class="absolute top-2 right-2 text-amber-400 opacity-60 text-lg">🪔</div>
+            <div class="absolute bottom-2 left-2 text-amber-400 opacity-60 text-lg">🪔</div>
+            <div class="absolute bottom-2 right-2 text-amber-400 opacity-60 text-lg">🪔</div>
+
+            <!-- Inner Parchment Paper Card -->
+            <div class="parchment-paper relative p-5 sm:p-6 rounded-xl z-10 min-h-[360px] pb-16">
+
+                <!-- Header Banner -->
+                <div class="text-center mb-3 pt-1">
+                    <p class="text-xs font-bold text-amber-800 tracking-widest uppercase">✨ Happy Thadingyut ✨</p>
+                    <h2 class="text-xl sm:text-2xl text-amber-950 font-bold mt-1 drop-shadow-sm">
+                        သီးတင်းကျွတ် မင်္ဂလာအခါသမယ
+                    </h2>
+                    <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-700 to-transparent mx-auto mt-2"></div>
+                </div>
+
+                <!-- Myanmar Wish Message with Typewriter Effect -->
+                <div class="space-y-2.5 text-center leading-relaxed text-amber-950 my-3 min-h-[160px] flex flex-col justify-center">
+                    <p id="typeTitle" class="text-base sm:text-lg font-bold text-amber-900 drop-shadow-sm min-h-[28px]"></p>
+                    
+                    <p id="typeBody1" class="text-xs sm:text-sm font-medium px-1 min-h-[50px] leading-6"></p>
+
+                    <p id="typeBody2" class="text-xs sm:text-sm font-semibold text-amber-800 italic pt-1 min-h-[40px]"></p>
+                </div>
+
+                <!-- Bottom Right Stamp Photo (Miniature Interactive Sticker) -->
+                <div class="absolute bottom-3 right-4 stamp-photo z-20" onclick="openPhotoModal(event)" title="Click to view photo">
+                    <img src="https://i.ibb.co/1tTKwFFd/photo-2026-09-30-12-12-03.jpg" 
+                         alt="Thadingyut Festival Preview" 
+                         class="w-11 h-13 object-cover rounded-sm"
+                         onerror="this.src='https://cdn-icons-png.flaticon.com/512/2830/2830289.png'">
+                    <span class="block text-[8px] text-center font-bold text-amber-800 mt-0.5">Thadingyut</span>
+                </div>
+
+                <!-- Decorative Footer -->
+                <div id="cardFooter" class="mt-4 pt-3 border-t border-amber-800/20 flex items-center justify-between text-xs text-amber-900 opacity-0 transition-opacity duration-500 pr-16">
+                    <span class="font-bold text-amber-900">To you ❤️</span>
+                </div>
+            </div>
+
+            <!-- Close Button -->
+            <button onclick="closeWishCard()" class="absolute top-3 right-3 z-30 bg-amber-600 text-white rounded-full p-1.5 shadow-lg hover:bg-amber-700 transition-colors focus:outline-none border border-amber-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Full Photo Modal Container -->
+    <div id="photoModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-lg opacity-0 pointer-events-none transition-opacity duration-300" onclick="closePhotoModal()">
+        <div class="relative max-w-sm sm:max-w-md w-full bg-amber-950/80 p-3 rounded-2xl border-2 border-amber-500/80 shadow-2xl transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+            
+            <img src="https://i.ibb.co/1tTKwFFd/photo-2026-09-30-12-12-03.jpg" 
+                 alt="Thadingyut Lighting Festival" 
+                 class="w-full h-auto rounded-xl max-h-[75vh] object-cover mx-auto border border-amber-400/40"
+                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/2830/2830289.png'">
+            
+            <p class="text-center text-xs text-amber-200 mt-2 font-medium">✨Thadingyut✨</p>
+
+            <button onclick="closePhotoModal()" class="absolute -top-3 -right-3 bg-amber-600 text-white rounded-full p-2 shadow-lg hover:bg-amber-700 transition-colors focus:outline-none border border-amber-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Updated Passcode
+        const CORRECT_PASSCODE = "2292026";
+        let currentPasscode = "";
+
+        const titleText = "သီတင်းကျွတ်အခါသမယလေးမှာ 🪔✨";
+        const body1Text = "အကိုဘဝမှာ စိတ်ချမ်းသာခြင်း၊ ကိုယ်ကျန်းမာခြင်းတွေနဲ့အတူ ကောင်းခြင်းမင်္ဂလာတွေအမြဲပြည့်စုံပါစေ။ လုပ်သမျှအရာတိုင်း အဆင်ပြေချောမွေ့ပြီး ရည်မှန်းထားသမျှတွေလည်း တစ်ခုပြီးတစ်ခု အကောင်အထည်ဖော်နိုင်ပါစေ။ စိတ်ညစ်စရာတွေ ဝေးကွာပြီး ပျော်ရွှင်စရာနေ့ရက်လေးတွေပဲ ပိုင်ဆိုင်နိုင်ပါစေ။ အကိုဘေးမှာ အမြဲနွေးထွေးပေးမယ့်သူတွေရှိပြီး ချစ်ခြင်းမေတ္တာတွေနဲ့ ပြည့်နှက်နေပါစေ။";
+        const body2Text = "ဒီသီတင်းကျွတ်ကစပြီး အကိုအတွက် ကောင်းခြင်းတွေချည်းပဲ ရောက်လာပါစေလို ဆုတောင်းပေးပါတယ်။ 🥰🪔💫";
+
+        let isTyping = false;
+        let typingTimeout;
+
+        function startExperience() {
+            const startScreen = document.getElementById('startScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            startScreen.classList.add('opacity-0');
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                mainContent.classList.remove('hidden');
+                createSkyLanterns();
+            }, 700);
+        }
+
+        function createSkyLanterns() {
+            const container = document.getElementById('lantern-container');
+            if (!container) return;
+            const lanternCount = 20;
+
+            for (let i = 0; i < lanternCount; i++) {
+                const lantern = document.createElement('div');
+                lantern.classList.add('sky-lantern');
+                
+                const left = Math.random() * 100;
+                const duration = Math.random() * 8 + 8;
+                const delay = Math.random() * 6;
+                const drift = (Math.random() - 0.5) * 120;
+
+                lantern.style.left = `${left}%`;
+                lantern.style.setProperty('--duration', `${duration}s`);
+                lantern.style.setProperty('--drift', `${drift}px`);
+                lantern.style.animationDelay = `${delay}s`;
+
+                container.appendChild(lantern);
+            }
+        }
+
+        /* Passcode Functions */
+        function promptPasscode() {
+            currentPasscode = "";
+            updatePasscodeDots();
+            
+            const modal = document.getElementById('passwordModal');
+            const card = document.getElementById('passcodeCard');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }
+
+        function closePasscodeModal() {
+            const modal = document.getElementById('passwordModal');
+            const card = document.getElementById('passcodeCard');
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+        }
+
+        function closePasscodeOnBg(e) {
+            if (e.target.id === 'passwordModal') closePasscodeModal();
+        }
+
+        function appendPasscode(digit) {
+            if (currentPasscode.length < 7) {
+                currentPasscode += digit;
+                updatePasscodeDots();
+
+                if (currentPasscode.length === 7) {
+                    setTimeout(verifyPasscode, 150);
+                }
+            }
+        }
+
+        function removeLastPasscode() {
+            if (currentPasscode.length > 0) {
+                currentPasscode = currentPasscode.slice(0, -1);
+                updatePasscodeDots();
+            }
+        }
+
+        function clearPasscode() {
+            currentPasscode = "";
+            updatePasscodeDots();
+        }
+
+        function updatePasscodeDots() {
+            const dotsContainer = document.getElementById('passcodeDots');
+            const dots = dotsContainer.children;
+            for (let i = 0; i < dots.length; i++) {
+                if (i < currentPasscode.length) {
+                    dots[i].classList.remove('bg-transparent');
+                    dots[i].classList.add('bg-amber-400', 'shadow-[0_0_8px_rgba(245,158,11,0.8)]');
+                } else {
+                    dots[i].classList.remove('bg-amber-400', 'shadow-[0_0_8px_rgba(245,158,11,0.8)]');
+                    dots[i].classList.add('bg-transparent');
+                }
+            }
+        }
+
+        function verifyPasscode() {
+            if (currentPasscode === CORRECT_PASSCODE) {
+                closePasscodeModal();
+                
+                // Play Background Music Automatically upon correct passcode
+                playAudioAuto();
+
+                setTimeout(openWishCard, 300);
+            } else {
+                const card = document.getElementById('passcodeCard');
+                card.classList.add('animate-shake');
+                
+                // Red flash feedback
+                const dots = document.getElementById('passcodeDots').children;
+                for (let dot of dots) {
+                    dot.classList.add('border-rose-500', 'bg-rose-500');
+                }
+
+                setTimeout(() => {
+                    card.classList.remove('animate-shake');
+                    clearPasscode();
+                    for (let dot of dots) {
+                        dot.classList.remove('border-rose-500', 'bg-rose-500');
+                    }
+                }, 500);
+            }
+        }
+
+        /* Auto Music Playback Function */
+        function playAudioAuto() {
+            const audio = document.getElementById('bgMusic');
+            if (audio) {
+                audio.play().catch(err => {
+                    console.log("Audio play request allowed on user interaction", err);
+                });
+            }
+        }
+
+        /* Keyboard Support for Passcode */
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('passwordModal');
+            if (modal.classList.contains('opacity-100')) {
+                if (e.key >= '0' && e.key <= '9') {
+                    appendPasscode(e.key);
+                } else if (e.key === 'Backspace') {
+                    removeLastPasscode();
+                } else if (e.key === 'Escape') {
+                    closePasscodeModal();
+                }
+            }
+        });
+
+        /* Wish Card Functions */
+        function openWishCard() {
+            const modal = document.getElementById('wishModal');
+            const modalCard = document.getElementById('modalCard');
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            
+            modalCard.classList.remove('scale-90');
+            modalCard.classList.add('scale-100');
+
+            // Reset text elements
+            document.getElementById('typeTitle').textContent = '';
+            document.getElementById('typeBody1').textContent = '';
+            document.getElementById('typeBody2').textContent = '';
+            document.getElementById('cardFooter').classList.add('opacity-0');
+
+            // Start Typewriter Animation
+            setTimeout(startTypingEffect, 300);
+        }
+
+        function startTypingEffect() {
+            isTyping = true;
+            typeSentence('typeTitle', titleText, 45, () => {
+                typeSentence('typeBody1', body1Text, 35, () => {
+                    typeSentence('typeBody2', body2Text, 35, () => {
+                        document.getElementById('cardFooter').classList.remove('opacity-0');
+                        isTyping = false;
+                    });
+                });
+            });
+        }
+
+        function typeSentence(elementId, text, speed, callback) {
+            const el = document.getElementById(elementId);
+            el.classList.add('typing-cursor');
+            let i = 0;
+
+            function typeChar() {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                    typingTimeout = setTimeout(typeChar, speed);
+                } else {
+                    el.classList.remove('typing-cursor');
+                    if (callback) callback();
+                }
+            }
+            typeChar();
+        }
+
+        function closeWishCard() {
+            const modal = document.getElementById('wishModal');
+            const modalCard = document.getElementById('modalCard');
+
+            clearTimeout(typingTimeout);
+
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+
+            modalCard.classList.remove('scale-100');
+            modalCard.classList.add('scale-90');
+        }
+
+        function closeWishCardOnBg(event) {
+            if (event.target.id === 'wishModal') {
+                closeWishCard();
+            }
+        }
+
+        /* Full Photo Modal Functions */
+        function openPhotoModal(event) {
+            event.stopPropagation();
+            const photoModal = document.getElementById('photoModal');
+            photoModal.classList.remove('opacity-0', 'pointer-events-none');
+            photoModal.classList.add('opacity-100', 'pointer-events-auto');
+        }
+
+        function closePhotoModal() {
+            const photoModal = document.getElementById('photoModal');
+            photoModal.classList.remove('opacity-100', 'pointer-events-auto');
+            photoModal.classList.add('opacity-0', 'pointer-events-none');
+        }
+    </script>
+</body>
+</html>
